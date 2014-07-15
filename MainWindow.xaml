@@ -1,0 +1,59 @@
+﻿<Window x:Class="QuickTimer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:QuickTimer"
+        Name="Window1"
+        Title="QuickTimer" 
+        Icon="pack://application:,,,/Resources/Stopwatch-3d.ico" 
+        Height="240" Width="350" MinWidth="230" MinHeight="200" Background="#FFFFFF">
+    <Window.InputBindings>
+        <KeyBinding Command="" Key="Enter" />
+    </Window.InputBindings>
+    <Window.Resources>
+        <local:PercentTimeLeft x:Key="PercentTimeLeft" />
+        <local:PercentTimeLeftProgress x:Key="PercentTimeLeftProgress" />
+    </Window.Resources>
+    <Grid x:Name="MainGrid"  Loaded="Grid_Loaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55" />
+            <RowDefinition Height="230*" />
+        </Grid.RowDefinitions>
+        <ProgressBar Margin="10,10,10,1" Name="progressBar1" >
+            <ProgressBar.Value>
+                <MultiBinding Converter="{StaticResource PercentTimeLeft}" Mode="OneWay">
+                    <Binding Path="Duration" />
+                    <Binding Path="Remaining" />
+                </MultiBinding>
+            </ProgressBar.Value>
+        </ProgressBar>
+        <Label Height="44" HorizontalAlignment="Left" 
+               Content="{Binding Path=RemainString}"
+               Margin="20,20,20,10" Name="timeRemaining" VerticalAlignment="Center" Width="158" FontSize="24" />
+        <UniformGrid Grid.Row="1" Columns="5" Margin="8" >
+            <Button Name="minute30" Margin="2" Click="minute_Click" MouseRightButtonDown="minute_MouseRightButtonDown">30</Button>
+            <Button Name="minute15" Margin="2" Click="minute_Click" MouseRightButtonDown="minute_MouseRightButtonDown">15</Button>
+            <Button Name="minute10" Margin="2" Click="minute_Click" MouseRightButtonDown="minute_MouseRightButtonDown">10</Button>
+            <Button Name="minute5" Margin="2" Click="minute_Click" MouseRightButtonDown="minute_MouseRightButtonDown">5</Button>
+            <Button Name="minute1" Margin="2" Click="minute_Click" MouseRightButtonDown="minute_MouseRightButtonDown">1</Button>
+            <Button Name="second30" Margin="2" Click="second_Click" MouseRightButtonDown="second_MouseRightButtonDown">30</Button>
+            <Button Name="second15" Margin="2" Click="second_Click" MouseRightButtonDown="second_MouseRightButtonDown">15</Button>
+            <Button Name="second10" Margin="2" Click="second_Click" MouseRightButtonDown="second_MouseRightButtonDown">10</Button>
+            <Button Name="second5" Margin="2" Click="second_Click" MouseRightButtonDown="second_MouseRightButtonDown">5</Button>
+            <Button Name="second1" Margin="2" Click="second_Click" MouseRightButtonDown="second_MouseRightButtonDown">1</Button>
+            <Button Name="start" Margin="2" Click="start_Click">Start</Button>
+            <Button Name="pause" Margin="2" Click="pause_Click">Pause</Button>
+            <Button Name="clear" Margin="2" Click="clear_Click">Clear</Button>
+            <Button Name="reset" Margin="2" Click="reset_Click">Reset</Button>
+        </UniformGrid>
+    </Grid>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="Normal">
+            <TaskbarItemInfo.ProgressValue>
+                <MultiBinding Converter="{StaticResource PercentTimeLeftProgress}" Mode="OneWay" >
+                    <Binding Path="Duration" />
+                    <Binding Path="Remaining" />
+                </MultiBinding>
+            </TaskbarItemInfo.ProgressValue>
+        </TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
+</Window>
