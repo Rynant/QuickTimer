@@ -56,16 +56,16 @@ namespace QuickTimer
 
         private void NotifyPropertyChanged(String info)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
         }
 
         #region Properties
 
         private TimeSpan _duration;
-
+        /// <summary>
+        /// The total TimeSpan of the timer countdown.
+        /// Used to calculate percent complete as Remaining / Duration.
+        /// </summary>
         public TimeSpan Duration
         {
             get
@@ -74,43 +74,27 @@ namespace QuickTimer
             }
             set
             {
-                if (value > TimeSpan.FromTicks(0))
-                {
-                    _duration = value;
-                }
-                else
-                {
-                    _duration = TimeSpan.FromTicks(0);
-                }
+                _duration = value > TimeSpan.FromTicks(0) ? value : TimeSpan.FromTicks(0);
                 NotifyPropertyChanged("Duration");
                 SetRemaining();
             }
         }
 
-        private TimeSpan _remaining;
 
-        public TimeSpan Remaining
-        {
-            get
-            {
-                return this._remaining;
-            }
+        /// <summary>
+        /// The TimeSpan of the remaining countdown.
+        /// Used to calculate percent complete as Remaining / Duration.
+        /// </summary>
+        public TimeSpan Remaining { get; private set; }
 
-            //private set
-            //{
+        /// <summary>
+        /// Format the Remaining property as hh:mm:ss.f
+        /// </summary>
+        public string RemainString => Remaining.ToString(@"hh\:mm\:ss\.f");
 
-              //  this._remaining = value;
-
-            //}
-        }
-
-        public string RemainString
-        {
-            get
-            {
-                return this._remaining.ToString(@"hh\:mm\:ss\.f");
-            }
-        }
+        /// <summary>
+        /// Calculated as Duration - Remaining.
+        /// </summary>
         public TimeSpan Elapsed { get { return Duration - Remaining; } }
 
         public bool IsRunning { get { return _sw.IsRunning; } }
@@ -122,6 +106,10 @@ namespace QuickTimer
 
         public void AddDuration(TimeSpan span)
         {
+            if (Duration.Ticks < 0)
+            {
+                Duration = TimeSpan.Zero;
+            }
             Duration += span;
             SetRemaining();
         }
@@ -185,12 +173,13 @@ namespace QuickTimer
         {
             if (_sw.Elapsed <= Duration)
             {
-                _remaining = Duration - _sw.Elapsed;
+                Remaining = Duration - _sw.Elapsed;
             }
             else
             {
                 Stop();
-                _remaining = TimeSpan.FromTicks(0);
+                Remaining = TimeSpan.FromTicks(0);
+                _sw.Reset();
                 Finished(this, new EventArgs());
             }
             NotifyPropertyChanged("Remaining");

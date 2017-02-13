@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Shell;
+using System.ComponentModel;
 
 namespace QuickTimer
 {
+
 
     public static class MyCmd
     {
@@ -27,10 +20,10 @@ namespace QuickTimer
     public partial class MainWindow : Window
     {
         public Countdown clock;
+        public BackgroundWorker worker;
 
         public MainWindow()
         {
-            InitializeComponent();
 
             if (App.CommandLineTime > 0)
             {
@@ -42,8 +35,8 @@ namespace QuickTimer
                 clock = new Countdown();
             }
 
-            clock.Finished += new EventHandler(OnFinished);
-
+            clock.Finished += OnFinished;
+            InitializeComponent();
         }
 
         public void OnFinished(object sender, EventArgs args)
@@ -51,16 +44,10 @@ namespace QuickTimer
             SystemSounds.Exclamation.Play();
             Action bringToTop = () =>
             {
-                Window1.Topmost = true;
-                Window1.TaskbarItemInfo.ProgressValue = 1.0;
+                Window1.Activate();
                 Window1.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Error;
             };
             Dispatcher.BeginInvoke(bringToTop);
-        }
-
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            MainGrid.DataContext = clock;
         }
 
         private void minute_Click(object sender, RoutedEventArgs e)
@@ -93,32 +80,24 @@ namespace QuickTimer
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
-            this.clock.Start();
+            TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Normal;
+            clock.Start();
         }
 
 
         private void pause_Click(object sender, RoutedEventArgs e)
         {
             if (clock.IsRunning)
-            {
                 clock.Stop();
-            }
             else
-            {
                 clock.Start();
-            }
         }
 
 
-        private void clear_Click(object sender, RoutedEventArgs e)
-        {
-            clock.Clear();
-        }
+        private void clear_Click(object sender, RoutedEventArgs e) => clock.Clear();
 
-
-        private void reset_Click(object sender, RoutedEventArgs e)
-        {
-            clock.Reset();
-        }
+        private void reset_Click(object sender, RoutedEventArgs e) => clock.Reset();
+        
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e) => DataContext = clock;
     }
 }

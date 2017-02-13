@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Data;
 
 namespace QuickTimer
@@ -14,25 +11,11 @@ namespace QuickTimer
         {
             double percent = 0;
 
-            try
-            {
+            double duration = ((TimeSpan)values[0]).Ticks;
+            double remaining = ((TimeSpan)values[1]).Ticks;
+            percent = duration > 0 ? 100 * remaining / duration : 0.0;
 
-                double duration = ((TimeSpan)values[0]).Ticks;
-                double remaining = ((TimeSpan)values[1]).Ticks;
-                percent = 100 * remaining / duration;
-            }
-            catch
-            {
-            }
-
-            if (percent >= 0)
-            {
-                return percent;
-            }
-            else
-            {
-                return (double)0;
-            }
+            return percent >= 0 ? percent : 0.0;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
@@ -50,25 +33,11 @@ namespace QuickTimer
         {
             double percent = 0;
 
-            try
-            {
+            double duration = ((TimeSpan)values[0]).Ticks;
+            double remaining = ((TimeSpan)values[1]).Ticks;
+            percent = duration > 0 ? remaining / duration : 0.0;
 
-                double duration = ((TimeSpan)values[0]).Ticks;
-                double remaining = ((TimeSpan)values[1]).Ticks;
-                percent = remaining / duration;
-            }
-            catch
-            {
-            }
-
-            if (percent >= 0)
-            {
-                return percent;
-            }
-            else
-            {
-                return (double)0;
-            }
+            return percent > 0 ? percent : 1.0;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

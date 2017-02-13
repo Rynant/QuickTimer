@@ -24,3 +24,17 @@ C:\Users\rgrant\Dropbox\src\QuickTimer\obj\x86\Debug\QuickTimer.Properties.Resou
 C:\Users\rgrant\Dropbox\src\QuickTimer\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\rgrant\Dropbox\src\QuickTimer\obj\x86\Debug\QuickTimer_MarkupCompile.lref
 C:\Users\rgrant\Dropbox\src\QuickTimer\obj\x86\Debug\QuickTimer.csproj.GenerateResource.Cache
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\QuickTimer.exe
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\QuickTimer.pdb
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\bin\Debug\QuickTimer.exe
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\bin\Debug\QuickTimer.pdb
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\QuickTimer.csprojResolveAssemblyReference.cache
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\MainWindow.g.cs
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\App.g.cs
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\QuickTimer_MarkupCompile.cache
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\QuickTimer_MarkupCompile.lref
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\MainWindow.baml
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\QuickTimer.g.resources
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\QuickTimer.Properties.Resources.resources
+C:\Users\ryang\OneDrive\src\csharp\QuickTimer\obj\x86\Debug\QuickTimer.csproj.GenerateResource.Cache
