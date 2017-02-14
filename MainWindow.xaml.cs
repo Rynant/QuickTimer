@@ -9,11 +9,6 @@ using System.ComponentModel;
 namespace QuickTimer
 {
 
-
-    public static class MyCmd
-    {
-        public static readonly RoutedUICommand Reset = new RoutedUICommand();
-    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
